@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 33526395611647446}
   - component: {fileID: 23175218932141086}
   - component: {fileID: 136264294806313406}
+  - component: {fileID: 114127634691287726}
   m_Layer: 0
-  m_Name: Monster2
+  m_Name: DragonModelTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1450073068316564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.9899998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,6 +85,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1450073068316564}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114127634691287726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450073068316564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969d23be1dd119a43b9f7df5cb6822ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136264294806313406
 CapsuleCollider:
   m_ObjectHideFlags: 1
