@@ -49,21 +49,58 @@ namespace MonsterLib
 
     public class Monster
     {
-        int HP; 
-        public Size size;
-        public Type type;
-        public SubType subType;
-        int hitDice;
-        public int initiative; //dice roll 
-        public int speed; //in feet
+        public string name;
+        public int HP; 
+        public Size size { get; set; }
+        public Type type { get; set; }
+        public SubType subType { get; set; }
+        public int hitDice { get; set; }
+        public int initiative { get; set; } //dice roll 
+        public int speed { get; set; } //in feet
         public int armorClass, baseAttack, grapple;
         public Dictionary<string, UnityAction> attackMethods;
-        public int space;
-        public int reach;
+        public int space { get; set; }
+        public int reach { get; set; }
         public Dictionary<string, UnityAction> specialAttacks;
         public string specialQualities;
         public int[] saves = new int[3];
         public int[] abilities = new int[6];
+
+        public Monster(string name, int hp, Size size, Type type, SubType subtype, int speed, int space, int reach){
+            this.name = name;
+            this.HP = hp;
+            this.size = size;
+            this.type = type;
+            this.subType = subtype;
+            this.speed = speed;
+            this.space = space;
+            this.reach = reach;
+
+            for(int i=0; i<abilities.Length; i++){
+                abilities[i] = (int)Random.Range(1, 10);
+            }
+        }
+
+        // ignore pls
+        // public Monster(Monster copy){
+        //     this.name = copy.name;
+        //     this.HP = copy.HP;
+        //     this.size = copy.size;
+        //     this.type = copy.type;
+        //     this.subType = copy.subType;
+        //     this.speed = copy.speed;
+        //     this.space = copy.space;
+        //     this.reach = copy.reach;
+
+        //     for(int i=0; i<copy.abilities.Length; i++){
+        //         this.abilities[i] = copy.abilities[i];
+        //     }
+
+        // }
+
+        public void setAbility(int index, int val){
+            this.abilities[index] = val;
+        }
 
         //owlbear
         //red dragon
