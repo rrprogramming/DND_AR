@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33405794806007194}
   - component: {fileID: 23610316252660672}
   - component: {fileID: 136002488105402862}
+  - component: {fileID: 114939327207735024}
   m_Layer: 0
   m_Name: OwlModelTemp
   m_TagString: Untagged
@@ -84,6 +85,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1550798232299036}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114939327207735024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550798232299036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969d23be1dd119a43b9f7df5cb6822ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136002488105402862
 CapsuleCollider:
   m_ObjectHideFlags: 1
