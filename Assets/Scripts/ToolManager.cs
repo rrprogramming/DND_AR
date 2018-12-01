@@ -46,5 +46,8 @@ public class ToolManager : MonoBehaviour {
 			
 			newTool.GetComponent<Button>().onClick.AddListener(t.action);
 		}
+
+		RectTransform rt = scrollContent.GetComponent<RectTransform>();
+		rt.sizeDelta = new Vector2(rt.sizeDelta.x, tools.Count*90);
 	}
 }
