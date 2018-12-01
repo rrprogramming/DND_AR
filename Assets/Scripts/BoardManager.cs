@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using MonsterLib;
+
 
 public class BoardManager : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler {
 
@@ -13,8 +15,10 @@ public class BoardManager : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
 	public Transform scrollContent;
 	public GameObject boardCardPrefab;
 	List<Card> cards;
+    WebManager webManager;
+    int lastCardIndex = 0; 
 
-	void Start () {
+    void Start () {
 		if(INSTANCE!=null){
 			Destroy(this);
 		}else{
@@ -22,7 +26,8 @@ public class BoardManager : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
 		}
 		SetViewing(null);
 		cards = new List<Card>();
-	}
+        webManager = GameObject.Find("WebManager").GetComponent<WebManager>();
+    }
 	
 	public void SetViewing(GameObject obj){
 		foreach(Transform c in viewportSpawn){
@@ -33,32 +38,69 @@ public class BoardManager : MonoBehaviour,IPointerEnterHandler,IPointerExitHandl
 		obj.transform.position = new Vector3(0,0,0);
 	}
 
-	public void AddCard(Card card){
-		cards.Add(card);
+    public void AddCard(Card card)
+    {
+        cards.Add(card);
 		RenderCards();
 	}
 
-	public void RemoveCard(int index){
-		cards.RemoveAt(index);
-		RenderCards();
-	}
+    public void RemoveCard(Card card)
+    {
+        cards.Remove(card);
+        RenderCards();
+        string[] datos = { "null", "null", "null" };
+        int datosCount = 0;
+        foreach (Card cardInstance in cards)
+        {
+            if (cardInstance.monster is RedDragon)
+            {
+                datos[datosCount] = "Adult Red Dragon-Kun";
+            }
+            if (cardInstance.monster is HillGiant)
+            {
+                datos[datosCount] = "Hill Giant-San";
+            }
+            if (cardInstance.monster is OwlBear)
+            {
+                datos[datosCount] = "Owlbear-Tan";
+            }
+            datosCount = Mathf.Clamp(datosCount + 1, 0, 2);
+        }
+        webManager.StartCoroutine(webManager.Upload(datos));
+    }
 
 	public void CardDropped(Card card){
 		cards.Add(card);
-		RenderCards();
+        RenderCards();
+        string[] datos = { "null", "null", "null" };
+        int datosCount = 0; 
+        foreach(Card cardInstance in cards)
+        {
+            if (cardInstance.monster is RedDragon)
+            {
+                datos[datosCount] = "Adult Red Dragon-Kun";
+            }
+            if (cardInstance.monster is HillGiant)
+            {
+                datos[datosCount] = "Hill Giant-San";
+            }
+            if (cardInstance.monster is OwlBear) {
+                datos[datosCount] = "Owlbear-Tan";
+            }
+            datosCount = Mathf.Clamp(datosCount + 1, 0, 2);
+        }
+        webManager.StartCoroutine(webManager.Upload(datos));
+    }
 
-		// DO STUFF IN NETWORK
-	}
-
-	void RenderCards(){
+	public void RenderCards(){
 		foreach(Transform t in scrollContent) Destroy(t.gameObject);
 
 		int cardCount = 0;
 		foreach(Card c in cards){
 			GameObject newCard = Instantiate(boardCardPrefab, scrollContent);
 			// (140, -40), (200, 200);
-			float x = 140 + (cardCount%4) * 240;
-			float y = -40 + Mathf.Floor(cardCount/4) * -240;
+			float x = 260 + (cardCount%3) * 240;
+			float y = -160 + Mathf.Floor(cardCount/3) * -240;
 			Vector2 cardPos = new Vector2(x, y);
 			
 			RectTransform rt = newCard.GetComponent<RectTransform>();

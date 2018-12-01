@@ -13,13 +13,14 @@ public class WebManager : MonoBehaviour {
         DebugError = GameObject.Find("ErrorLog").GetComponent<Text>();
     }
 
-    public IEnumerator Upload(string patron, string modelo)
+    public IEnumerator Upload(string[] data)
     {
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("field1=patron&field2=modelo"));
-        formData.Add(new MultipartFormFileSection(patron, modelo));
+        WWWForm form = new WWWForm();
+        form.AddField("tacha", data[0]);
+        form.AddField("triangulo", data[1]);
+        form.AddField("h", data[2]);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://www.borregobo.com/post.php", formData);
+        UnityWebRequest www = UnityWebRequest.Post("http://www.borregobo.com/post.php", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)

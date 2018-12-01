@@ -14,15 +14,12 @@ public class Card : MonoBehaviour, IDragHandler,IEndDragHandler,IPointerEnterHan
 	Transform originalParent;
 	public Monster monster;
 	public Sprite image;
-    public string name; 
-    private WebManager manager; 
 
 	void Start () {
 		rt = GetComponent<RectTransform>();
 		originalPos = rt.anchoredPosition;
 		originalParent = transform.parent;
 		canvas = transform.root.GetComponentInChildren<Canvas>().transform;
-        manager = GameObject.Find("WebManager").GetComponent<WebManager>();
     }
 
 	public void SetImage(Sprite image){
@@ -43,25 +40,6 @@ public class Card : MonoBehaviour, IDragHandler,IEndDragHandler,IPointerEnterHan
         rt.anchoredPosition = originalPos;
         if (BoardManager.INSTANCE.hover)
             BoardManager.INSTANCE.CardDropped(this);
-        if (monster is RedDragon)
-        {
-            manager.StartCoroutine(manager.Upload("Adult Red Dragon-Kun", "tacha"));
-            //manager.MakeRequest("Adult Red Dragon-Kun", "tacha");
-        }
-        else if(monster is HillGiant)
-        {
-            manager.StartCoroutine(manager.Upload("Hill Giant-San", "triangulo"));
-            //manager.MakeRequest("Hill Giant-San", "triangulo");
-        }
-        else if(monster is OwlBear)
-        {
-            manager.StartCoroutine(manager.Upload("Owlbear-Tan", "h"));
-            //manager.MakeRequest("Owlbear-Tan", "h");
-        }
-        else
-        {
-            Debug.Log("Quien sabe que es ese monstruo");
-        }
 	}
 
 	public void OnPointerEnter(PointerEventData data){

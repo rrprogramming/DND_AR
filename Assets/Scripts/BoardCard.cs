@@ -12,8 +12,14 @@ public class BoardCard : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
 		BoardManager.INSTANCE.SetViewing(card.model);
 	}
 
-	public void OnPointerClick(PointerEventData data){
-		InfoManager.INSTANCE.SetInfo(card);
+    public void OnPointerClick(PointerEventData data) {
+        if (data.pointerId == -1) { 
+            InfoManager.INSTANCE.SetInfo(card);
+        }else if (data.pointerId == -2)
+        {
+            BoardManager.INSTANCE.RemoveCard(card);
+            BoardManager.INSTANCE.RenderCards();
+        }
 	}
 
 }

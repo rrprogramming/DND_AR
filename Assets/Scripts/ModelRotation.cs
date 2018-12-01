@@ -11,6 +11,6 @@ public class ModelRotation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(Vector3.up * 4 * Time.deltaTime);
+        transform.Rotate(Vector3.up * 8 * Time.deltaTime);
     }
 }
