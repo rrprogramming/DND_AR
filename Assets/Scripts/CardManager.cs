@@ -24,7 +24,7 @@ public class CardManager : MonoBehaviour {
 		float x = (cardCount%2)==0 ? 8 : 176;
 		float y = -8 + Mathf.Floor(cardCount/2) * -168;
 		Vector2 cardPos = new Vector2(x, y);
-		Debug.Log(cardPos);
+		//Debug.Log(cardPos);
 		GameObject newCard = Instantiate(cardPrefab, cardScrollView);
 
 		RectTransform rt = newCard.GetComponent<RectTransform>();

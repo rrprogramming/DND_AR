@@ -36,8 +36,8 @@ public class InfoManager : MonoBehaviour {
 		space.text = ""+monster.space;
 		reach.text = ""+monster.reach;
 		// saves.text = ""+monster.save
-		hd.text = ""+monster.hitDice;
-		hp.text = ""+monster.HP;
+		hd.text = ""+monster.hd;
+		hp.text = ""+monster.hp;
 		ac.text = ""+monster.armorClass;
 		atk.text = ""+monster.baseAttack;
 		gpl.text = ""+monster.grapple;

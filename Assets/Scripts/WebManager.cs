@@ -2,61 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class WebManager : MonoBehaviour {
 
-    public static readonly string url = "http://www.borregobo.com";
-    private Text DebugUIElement; 
-
-    private void Start()
+    public static readonly string url = "http://www.borregobo.com/post.php";
+    private Text DebugError; 
+    void Start()
     {
-        DebugUIElement = GameObject.Find("ErrorLog").GetComponent<Text>();
+        DebugError = GameObject.Find("ErrorLog").GetComponent<Text>();
     }
 
-    void MakeRequest(string patron, string modelo)
+    public IEnumerator Upload(string patron, string modelo)
     {
-        string json = GenerateJson(patron, modelo);
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("field1=patron&field2=modelo"));
+        formData.Add(new MultipartFormFileSection(patron, modelo));
 
-    }
+        UnityWebRequest www = UnityWebRequest.Post("http://www.borregobo.com/post.php", formData);
+        yield return www.SendWebRequest();
 
-    public WWW POST(string url, string json)
-    {
-        WWW www;
-        Dictionary<string, string> postHeader = new Dictionary<string, string>();
-        postHeader.Add("Content-Type", "application/json");
-
-        // convert json string to byte
-        var formData = System.Text.Encoding.UTF8.GetBytes(json);
-
-        www = new WWW(url, formData, postHeader);
-        StartCoroutine(WaitForRequest(www));
-        return www;
-    }
-
-    IEnumerator WaitForRequest(WWW data)
-    {
-        yield return data; // Wait until the download is done
-        if (data.error != null)
+        if (www.isNetworkError || www.isHttpError)
         {
-            DebugUIElement.text = ("There was an error sending request: " + data.error);
+            DebugError.text = (www.error);
         }
         else
         {
-            DebugUIElement.text = ("WWW Request: " + data.text);
+            DebugError.text = ("Form upload complete!");
         }
-    }
-
-
-    public string GenerateJson(string patron, string modelo)
-    {
-        string data = "{";
-        data += "patron:";
-        data += "\"" + patron + "\"";
-        data += "\n";
-        data += "modelo:";
-        data += "\"" + modelo + "\"";
-        data += "\n";
-        data += "}";
-        return data; 
     }
 }
